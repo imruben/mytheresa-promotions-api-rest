@@ -24,7 +24,7 @@ class Product
     private ?int $price = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 2, nullable: true)]
-    private ?string $discount = null;
+    private ?float $discount = null;
 
     #[ORM\Column(length: 3, options: ["default" => "EUR"])]
     private ?string $currency = "EUR";
@@ -74,12 +74,12 @@ class Product
         return $this;
     }
 
-    public function getDiscount(): ?string
+    public function getDiscount(): ?float
     {
         return $this->discount;
     }
 
-    public function setDiscount(?string $discount): static
+    public function setDiscount(?float $discount): static
     {
         $this->discount = $discount;
 

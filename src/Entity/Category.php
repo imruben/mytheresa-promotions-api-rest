@@ -14,11 +14,11 @@ class Category
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, unique: true)]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 2, nullable: true)]
-    private ?string $discount = null;
+    private ?float $discount = null;
 
     public function getId(): ?int
     {
@@ -37,12 +37,12 @@ class Category
         return $this;
     }
 
-    public function getDiscount(): ?string
+    public function getDiscount(): ?float
     {
         return $this->discount;
     }
 
-    public function setDiscount(?string $discount): static
+    public function setDiscount(?string $discount): float
     {
         $this->discount = $discount;
 
