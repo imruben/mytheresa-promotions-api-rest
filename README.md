@@ -46,7 +46,7 @@ This request filters the products by the `category` and `priceLessThan` paramete
 
 #### Query Parameters
 
-- **category**: (Optional) Filter the products by category. For example, "boots", "shoes", "bags", etc.
+- **category**: (Optional) Filter the products by category. For example, "boots", "sandals" or "sneakers"
 - **priceLessThan**: (Optional) Filter that applies before discounts are applied and will show products with prices lesser than or equal
 
 #### Response Example
