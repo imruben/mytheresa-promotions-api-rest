@@ -16,28 +16,26 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    //    /**
-    //     * @return Product[] Returns an array of Product objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * @return Product[]
+     */
+    public function findByCategoryNameAndPriceLessThan(?string $categoryName = null, ?int $priceLessThan = null, int $limit = 5) : array
+    {
+        $qb = $this->createQueryBuilder('p');
 
-    //    public function findOneBySomeField($value): ?Product
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        if ($categoryName) {
+            $qb->innerJoin('p.category', 'c')
+                ->where('c.name = :categoryName')
+                ->setParameter('categoryName', $categoryName);
+        }
+
+        if ($priceLessThan) {
+            $qb->andWhere('p.price <= :priceLessThan')
+                ->setParameter('priceLessThan', $priceLessThan);
+        }
+
+        $qb->setMaxResults($limit);
+
+        return $qb->getQuery()->getResult();
+    }
 }
