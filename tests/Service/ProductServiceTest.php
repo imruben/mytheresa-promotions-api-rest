@@ -13,38 +13,39 @@ class ProductServiceTest extends TestCase
     public function testGetProductsByCategoryAndPriceLessThan(): void
     {
         $mockProduct = $this->createMock(Product::class);
-        $mockProduct->method('getSku')->willReturn('TEST123');
-        $mockProduct->method('getName')->willReturn('Test Product');
-        $mockProduct->method('getPrice')->willReturn(100);
-        $mockProduct->method('getCurrency')->willReturn('USD');
+        $mockProduct->expects($this->once())->method('getSku')->willReturn('SKU01234');
+        $mockProduct->expects($this->once())->method('getName')->willReturn('black boots');
+        $mockProduct->expects($this->atLeastOnce())->method('getPrice')->willReturn(100000);
+        $mockProduct->expects($this->once())->method('getCurrency')->willReturn('EUR');
 
         $mockCategory = $this->createMock(Category::class);
-        $mockCategory->method('getName')->willReturn('Test Category');
-        $mockCategory->method('getDiscount')->willReturn('10.00');
+        $mockCategory->expects($this->once())->method('getName')->willReturn('boots');
+        $mockCategory->expects($this->atLeastOnce())->method('getDiscount')->willReturn(15.00);
 
-        $mockProduct->method('getCategory')->willReturn($mockCategory);
-        $mockProduct->method('getDiscount')->willReturn(5);
+        $mockProduct->expects($this->atLeastOnce())->method('getCategory')->willReturn($mockCategory);
+        $mockProduct->expects($this->atLeastOnce())->method('getDiscount')->willReturn(30.00);
 
         $mockRepository = $this->createMock(ProductRepository::class);
         $mockRepository
+            ->expects($this->once())
             ->method('findByCategoryNameAndPriceLessThan')
-            ->with('Test Category', 200, 5)
+            ->with('boots', 200, 5)
             ->willReturn([$mockProduct]);
 
         $productService = new ProductService($mockRepository);
 
-        $result = $productService->getProductsByCategoryAndPriceLessThan('Test Category', 200, 5);
+        $result = $productService->getProductsByCategoryAndPriceLessThan('boots', 200, 5);
 
         $expected = [
             [
-                'sku' => 'TEST123',
-                'name' => 'Test Product',
-                'category' => 'Test Category',
+                'sku' => 'SKU01234',
+                'name' => 'black boots',
+                'category' => 'boots',
                 'price' => [
-                    'original' => 100,
-                    'final' => 90.0,
-                    'discount_percentage' => '10%',
-                    'currency' => 'USD',
+                    'original' => 100000,
+                    'final' => 70000,
+                    'discount_percentage' => '30%',
+                    'currency' => 'EUR',
                 ],
             ],
         ];
