@@ -13,7 +13,7 @@ class CategoryFixtures extends Fixture
         $categories = [
             [
                 'name' => 'boots',
-                'discount' => '30.00',
+                'discount' => 30.00,
             ],
             [
                 'name' => 'sandals',

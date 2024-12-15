@@ -36,7 +36,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 'name' => 'Ashlington leather ankle boots',
                 'category' => $bootsCategory,
                 'price' => 71000,
-                'discount' => '15.00',
+                'discount' =>15.00,
             ],
             [
                 'sku' => '000004',
@@ -50,7 +50,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 'name' => 'Nathane leather sneakers',
                 'category' => $sneakersCategory,
                 'price' => 59000,
-                'discount' => null,
+                'discount' => 8.00,
             ],
         ];
 

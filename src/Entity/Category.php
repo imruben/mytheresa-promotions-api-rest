@@ -42,7 +42,7 @@ class Category
         return $this->discount;
     }
 
-    public function setDiscount(?string $discount): float
+    public function setDiscount(?float $discount): static
     {
         $this->discount = $discount;
 
