@@ -1,51 +1,84 @@
-# Symfony Docker
-
-A [Docker](https://www.docker.com/)-based installer and runtime for the [Symfony](https://symfony.com) web framework,
-with [FrankenPHP](https://frankenphp.dev) and [Caddy](https://caddyserver.com/) inside!
-
-![CI](https://github.com/dunglas/symfony-docker/workflows/CI/badge.svg)
+# MyTheresa API Promotions Assigment
 
 ## Getting Started
 
-1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/) (v2.10+)
-2. Run `docker compose build --no-cache` to build fresh images
-3. Run `docker compose up --pull always -d --wait` to set up and start a fresh Symfony project
-4. Open `https://localhost` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
-5. Run `docker compose down --remove-orphans` to stop the Docker containers.
+To get started with this project, follow these steps:
 
-## Features
+1. **Install Make** (if you don't have it installed already):
+    - For Linux (using `apt`):
+      ```bash
+      sudo apt install make
+      ```
+    - For macOS (using `brew`):
+      ```bash
+      brew install make
+      ```
+    - For Windows, you can use the [Make for Windows](https://sourceforge.net/projects/gnuwin32/) or WSL (Windows Subsystem for Linux).
 
-* Production, development and CI ready
-* Just 1 service by default
-* Blazing-fast performance thanks to [the worker mode of FrankenPHP](https://github.com/dunglas/frankenphp/blob/main/docs/worker.md) (automatically enabled in prod mode)
-* [Installation of extra Docker Compose services](docs/extra-services.md) with Symfony Flex
-* Automatic HTTPS (in dev and prod)
-* HTTP/3 and [Early Hints](https://symfony.com/blog/new-in-symfony-6-3-early-hints) support
-* Real-time messaging thanks to a built-in [Mercure hub](https://symfony.com/doc/current/mercure.html)
-* [Vulcain](https://vulcain.rocks) support
-* Native [XDebug](docs/xdebug.md) integration
-* Super-readable configuration
+2. **Start the Docker containers**:
+    ```bash
+    make start
+    ```
 
-**Enjoy!**
+   This will:
+    - Build and start the necessary Docker containers.
+    - Set up the application environment.
 
-## Docs
+### Run tests
 
-1. [Options available](docs/options.md)
-2. [Using Symfony Docker with an existing project](docs/existing-project.md)
-3. [Support for extra services](docs/extra-services.md)
-4. [Deploying in production](docs/production.md)
-5. [Debugging with Xdebug](docs/xdebug.md)
-6. [TLS Certificates](docs/tls.md)
-7. [Using MySQL instead of PostgreSQL](docs/mysql.md)
-8. [Using Alpine Linux instead of Debian](docs/alpine.md)
-9. [Using a Makefile](docs/makefile.md)
-10. [Updating the template](docs/updating.md)
-11. [Troubleshooting](docs/troubleshooting.md)
+Once the containers are up and running, you can run the tests with:
 
-## License
+```bash
+  make test
+```
 
-Symfony Docker is available under the MIT License.
+## API Documentation
 
-## Credits
+### `/products` Endpoint
 
-Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
+The `/products` endpoint is used to fetch a list of products with applied promotions. You can filter the products based on various query parameters.
+
+#### Request Example
+
+A typical GET request to the `/products` endpoint might look like this:
+
+This request filters the products by the `category` and `priceLessThan` parameters.
+
+#### Query Parameters
+
+- **category**: (Optional) Filter the products by category. For example, "boots", "shoes", "bags", etc.
+- **priceLessThan**: (Optional) Filter that applies before discounts are applied and will show products with prices lesser than or equal
+
+#### Response Example
+
+Here’s an example of the JSON response you might get for the above request:
+    http://localhost/products?category=boots&priceLessThan=90000
+
+```json
+{
+  "products": [
+    {
+      "sku": "000001",
+      "name": "BV Lean leather ankle boots",
+      "category": "boots",
+      "price": {
+        "original": 89000,
+        "final": 62299,
+        "discount_percentage": "30%",
+        "currency": "EUR"
+      }
+    },
+    {
+      "sku": "000003",
+      "name": "Ashlington leather ankle boots",
+      "category": "boots",
+      "price": {
+        "original": 71000,
+        "final": 49700,
+        "discount_percentage": "30%",
+        "currency": "EUR"
+      }
+    }
+  ]
+}
+
