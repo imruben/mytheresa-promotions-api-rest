@@ -11,7 +11,7 @@ SYMFONY  = $(PHP) bin/console
 
 # Misc
 .DEFAULT_GOAL = help
-.PHONY        : help build up start down logs sh composer vendor sf cc test fixtures create-db
+.PHONY        : help build up start down logs sh composer vendor sf cc test fixtures create-db wait-for-db
 
 ## —— 🎵 🐳 The Symfony Docker Makefile 🐳 🎵 ——————————————————————————————————
 help: ## Outputs this help screen
@@ -24,7 +24,7 @@ build: ## Builds the Docker images
 up: ## Start the docker hub in detached mode (no logs)
 	@$(DOCKER_COMP) up --detach
 
-start: build up fixtures ## Build and start the containers, load fixtures
+start: build up wait-for-db fixtures ## Build and start the containers, load fixtures
 	@$(DOCKER_COMP) up --detach
 
 down: ## Stop the docker hub
@@ -38,6 +38,11 @@ sh: ## Connect to the FrankenPHP container
 
 bash: ## Connect to the FrankenPHP container via bash so up and down arrows go to previous commands
 	@$(PHP_CONT) bash
+
+## —— Database 🛠️ ————————————————————————————————————————————————————————
+wait-for-db: ## Wait until the database is ready
+	@echo "⏳ Waiting for the database to be ready..."
+	@$(DOCKER_COMP) exec php sh -c 'until nc -z database 3306; do sleep 1; done'
 
 test: ## Run tests
 	@$(eval c ?=)
