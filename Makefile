@@ -24,7 +24,7 @@ build: ## Builds the Docker images
 up: ## Start the docker hub in detached mode (no logs)
 	@$(DOCKER_COMP) up --detach
 
-start: build up fixtures ## Build and start the containers, load fixtures
+start: build up ## Build and start the containers
 	@$(DOCKER_COMP) up --detach
 
 down: ## Stop the docker hub

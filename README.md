@@ -15,7 +15,6 @@ To get started with this project, follow these steps:
       ```
     - For Windows, you can use the [Make for Windows](https://sourceforge.net/projects/gnuwin32/) or WSL (Windows Subsystem for Linux).
 
-
 2. **Start the Docker containers**:
     ```bash
     make start
@@ -25,10 +24,7 @@ To get started with this project, follow these steps:
     - Build and start the necessary Docker containers.
     - Set up the application environment.
 
-    
 3. **Load fixtures (test data)**:
-   
-    ***Only if it fails during the make start command***
     ```bash
     make fixtures
     ```
