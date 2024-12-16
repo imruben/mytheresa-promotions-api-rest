@@ -42,7 +42,7 @@ readonly class ProductService
     {
         $discount = $this->getProductDiscount($product);
 
-        return $discount ? $product->getPrice() * (1 - $discount / 100) : $product->getPrice();
+        return (int) round($discount ? $product->getPrice() * (1 - $discount / 100) : $product->getPrice());
     }
 
     private function getProductDiscount(Product $product) : ?float

@@ -19,7 +19,7 @@ class ProductControllerTest extends WebTestCase
         self::assertResponseStatusCodeSame(200);
 
         $responseContent = $client->getResponse()->getContent();
-        $expectedResponseContent = '{"products":[{"sku":"000001","name":"BV Lean leather ankle boots","category":"boots","price":{"original":89000,"final":62299,"discount_percentage":"30%","currency":"EUR"}},{"sku":"000003","name":"Ashlington leather ankle boots","category":"boots","price":{"original":71000,"final":49700,"discount_percentage":"30%","currency":"EUR"}}]}';
+        $expectedResponseContent = '{"products":[{"sku":"000001","name":"BV Lean leather ankle boots","category":"boots","price":{"original":89000,"final":62300,"discount_percentage":"30%","currency":"EUR"}},{"sku":"000003","name":"Ashlington leather ankle boots","category":"boots","price":{"original":71000,"final":49700,"discount_percentage":"30%","currency":"EUR"}}]}';
 
         self::assertEquals($expectedResponseContent, $responseContent);
     }

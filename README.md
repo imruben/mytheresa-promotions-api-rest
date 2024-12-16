@@ -51,8 +51,13 @@ This request filters the products by the `category` and `priceLessThan` paramete
 
 #### Response Example
 
+With the environment test database, there is the discounted products:
+- **SKU 000003:** 15%
+- **SKU 000005:** 8%
+- **Category boots:** 30%
+
 Here’s an example of the JSON response you might get for the above request:
-    http://localhost/products?category=boots&priceLessThan=90000
+- http://localhost/products?category=boots&priceLessThan=90000
 
 ```json
 {
@@ -63,7 +68,7 @@ Here’s an example of the JSON response you might get for the above request:
       "category": "boots",
       "price": {
         "original": 89000,
-        "final": 62299,
+        "final": 62300,
         "discount_percentage": "30%",
         "currency": "EUR"
       }
