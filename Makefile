@@ -41,6 +41,9 @@ bash: ## Connect to the FrankenPHP container via bash so up and down arrows go t
 
 test: ## Run tests
 	@$(eval c ?=)
+	@if [ -f bin/phpunit ]; then \
+		chmod +x bin/phpunit; \
+	fi
 	@$(DOCKER_COMP) exec -e APP_ENV=test php bin/phpunit $(c)
 
 ## —— Composer 🧙 ————————————————————————————————————————————————————————————————
